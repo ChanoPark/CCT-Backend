@@ -1,9 +1,12 @@
 package com.example.hackerton.domain.user;
 
+import com.example.hackerton.domain.item.Item;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -31,6 +34,11 @@ public class Store {
 
     @Column(nullable = false)
     private String tel;
+
+    @OneToMany
+    @JoinColumn(name = "store_id", nullable = false)
+    private List<Item> items = new ArrayList<>();
+
 
     @Column(nullable = false)
     private UserPermission role;

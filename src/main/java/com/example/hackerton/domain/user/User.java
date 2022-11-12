@@ -5,7 +5,12 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
-
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
+@Table(name="user")
+@Entity
 public class User {
     @Id @GeneratedValue
     private Long id;
