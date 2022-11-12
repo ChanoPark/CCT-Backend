@@ -30,8 +30,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
-    Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-    ;
+    Gson gson = new GsonBuilder().disableHtmlEscaping().create();;
 
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -40,10 +39,17 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        log.debug("URL : {}", request.getRequestURL());
+        log.debug("URL : {}",request.getRequestURL());
         if (request.getServletPath().equals(EndPoint.AUTH_USER_LOGIN) || request.getServletPath().equals(EndPoint.AUTH_REFRESH)
-        || request.getServletPath().equals(EndPoint.AUTH_USER_SIGNUP) || request.getServletPath().equals(EndPoint.AUTH_STORE_SIGNUP) ||
-                request.getServletPath().equals(EndPoint.AUTH_STORE_LOGIN)) {
+                || request.getServletPath().equals(EndPoint.AUTH_USER_SIGNUP) || request.getServletPath().equals(EndPoint.AUTH_STORE_SIGNUP) ||
+                request.getServletPath().equals(EndPoint.AUTH_STORE_LOGIN) ||
+                request.getServletPath().equals(EndPoint.AUTH_REFRESH) ||
+                request.getServletPath().equals("/doc") ||
+                request.getServletPath().equals("/favicon.ico") ||
+                request.getServletPath().contains("swagger-ui") ||
+                request.getServletPath().contains("swagger-resources") ||
+                request.getServletPath().contains("api-docs")
+        ) {
             log.debug("JwtTokenAuthenticationFilter.SKIP!");
         } else {
             log.debug("JwtTokenAuthenticationFilter.CHECK!");
