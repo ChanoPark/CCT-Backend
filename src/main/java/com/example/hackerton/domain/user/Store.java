@@ -44,6 +44,7 @@ public class Store {
 
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private UserPermission role;
 
     @Column(nullable = false)

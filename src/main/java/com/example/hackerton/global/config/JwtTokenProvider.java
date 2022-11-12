@@ -46,7 +46,7 @@ public class JwtTokenProvider {
                     .claim("officeNumber", storeInfo.getNumber())
                     .claim("tel", storeInfo.getTel())
                     .claim("address", storeInfo.getAddress())
-                    .claim("level_cd", storeInfo.getRole())
+                    .claim("level_cd", storeInfo.getLevel())
                     .claim("role", UserPermission.findByCode(storeInfo.getLevel()).toString())
                     .setIssuedAt(new Date(System.currentTimeMillis()))
                     .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALID_TIME))
@@ -61,7 +61,7 @@ public class JwtTokenProvider {
                     .claim("type", JwtTokenType.ACCESS)
                     .claim("nickname", userInfo.getName())
                     .claim("tel", userInfo.getTel())
-                    .claim("level_cd", userInfo.getRole())
+                    .claim("level_cd", userInfo.getLevel())
                     .claim("role", UserPermission.findByCode(userInfo.getLevel()).toString())
                     .setIssuedAt(new Date(System.currentTimeMillis()))
                     .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALID_TIME))
@@ -81,7 +81,7 @@ public class JwtTokenProvider {
                     .claim("officeName", storeInfo.getName())
                     .claim("officeNumber", storeInfo.getNumber())
                     .claim("tel", storeInfo.getTel())
-                    .claim("level_cd", storeInfo.getRole())
+                    .claim("level_cd", storeInfo.getLevel())
                     .claim("role", UserPermission.findByCode(storeInfo.getLevel()).toString())
                     .setIssuedAt(new Date(System.currentTimeMillis()))
                     .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALID_TIME))
@@ -96,7 +96,7 @@ public class JwtTokenProvider {
                     .claim("type", JwtTokenType.ACCESS)
                     .claim("nickname", userInfo.getName())
                     .claim("tel", userInfo.getTel())
-                    .claim("level_cd", userInfo.getRole())
+                    .claim("level_cd", userInfo.getLevel())
                     .claim("role", UserPermission.findByCode(userInfo.getLevel()).toString())
                     .setIssuedAt(new Date(System.currentTimeMillis()))
                     .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALID_TIME))
@@ -114,7 +114,7 @@ public class JwtTokenProvider {
 
         Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken).getBody();
         String loginId = claims.getSubject();
-        String name = claims.get("nickname", String.class);
+        String name = claims.get("officeName", String.class);
         String tel = claims.get("tel", String.class);
         String level = claims.get("level_cd", String.class);
 
@@ -129,11 +129,14 @@ public class JwtTokenProvider {
             dto.setUser(user);
         } else {
             String number = claims.get("officeNumber", String.class);
+            String address = claims.get("address", String.class);
+
             Store store = Store.builder()
                     .loginId(loginId)
                     .name(name)
                     .number(number)
                     .tel(tel)
+                    .address(address)
                     .level(level)
                     .role(UserPermission.findByCode(level))
                     .build();
