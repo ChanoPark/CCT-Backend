@@ -21,3 +21,7 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+
+jwt:
+  prefix: ${jwt.prefix}
+  access-token: ${jwt.access-token}
