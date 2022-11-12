@@ -26,8 +26,10 @@ public class ItemController {
 
     private final ItemService itemService;
 
-    @PostMapping(value = EndPoint.ITEM, consumes={MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> createItem(@RequestPart(value = "image") MultipartFile image, @RequestPart(value = "createDto") CreateItemReqDto dto) {
+//    @PostMapping(value = EndPoint.ITEM, consumes={MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value = EndPoint.ITEM)
+//    public ResponseEntity<?> createItem(@RequestPart(value = "image") MultipartFile image, @RequestPart(value = "createDto") CreateItemReqDto dto) {
+    public ResponseEntity<?> createItem(@RequestPart(value = "createDto") CreateItemReqDto dto) {
         if(itemService.saveItem(dto)) {
             return ResponseEntity.ok()
                     .body(CodeSet.ITEM_SAVE_SUCCESS);
