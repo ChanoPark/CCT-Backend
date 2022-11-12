@@ -29,6 +29,7 @@ public class User {
     private String tel;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private UserPermission role;
 
     @Column(nullable = false)

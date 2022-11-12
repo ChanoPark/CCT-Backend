@@ -1,6 +1,8 @@
 package com.example.hackerton.domain.user.service;
 
 import com.example.hackerton.domain.user.User;
+import com.example.hackerton.domain.user.dto.LoginReqDto;
+import com.example.hackerton.domain.user.repository.AuthRepository;
 import com.example.hackerton.global.config.JwtTokenProvider;
 import com.example.hackerton.global.config.LoginTokenResponse;
 import com.zaxxer.hikari.HikariDataSource;
@@ -17,36 +19,11 @@ import java.sql.SQLException;
 public class AuthServiceImpl implements AuthService {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final AuthRepository authRepository;
 
     /*로그인 ID, PW 검증*/
     public User userConfirmation(String id, String pw) {
-        User result = null;
-        HikariDataSource dataSource = dataSourceService.getDataSourceByKey(this.loginDB);
-        String userCheckQuery = "SELECT login_id, login_name, level_cd, status_cd, type_cd FROM tb_user WHERE login_id=? AND del_yn='N' AND login_pw=md5(?)";
-        try {
-            Connection con = dataSource.getConnection();
-            PreparedStatement pstmt = con.prepareStatement(userCheckQuery);
-            pstmt.setString(1, id);
-            pstmt.setString(2, pw);
-            ResultSet resultSet = pstmt.executeQuery();
-            while(resultSet.next()){
-                String loginId = resultSet.getString("login_id");
-                String loginName = resultSet.getString("name");
-                String level = resultSet.getString("level");
-                result = User.builder()
-                        .loginId(loginId)
-                        .name(loginName)
-                        .level(level)
-                        .build();
-            }
-
-            if (resultSet != null) resultSet.close();
-            if (pstmt != null) pstmt.close();
-            if (con != null) con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
+        return authRepository.login(id, pw);
     }
 
     /*검증 성공 시, 토큰 발급*/
