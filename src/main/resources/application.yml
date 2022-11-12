@@ -25,3 +25,17 @@ logging:
 jwt:
   prefix: ${jwt.prefix}
   access-token: ${jwt.access-token}
+
+cloud:
+   aws:
+     s3:
+       bucket: ${s3.bucket}
+       filePath: ${s3.filePath}
+     credentials:
+       instanceProfile: true
+       accessKey: ${s3.accessKey}
+       secretKey: ${s3.secretKey}
+     region:
+       static: ap-northeast-2
+     stack:
+       auto: false
