@@ -5,5 +5,5 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
 public interface AuthController {
-    ResponseEntity<?> login(@RequestBody LoginReqDto request);
+    ResponseEntity<?> userLogin(@RequestBody LoginReqDto request);
 }

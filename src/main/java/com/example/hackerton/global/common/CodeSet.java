@@ -4,7 +4,10 @@ public enum CodeSet {
     OK("0000","OK"),
 
     AUTH_ACCESS_TOKEN_EXPIRE("1203", "Access Token Expire."),
-    AUTH_LOGIN_FAIL("1100", "Login Fail.");
+    AUTH_LOGIN_FAIL("1100", "Login Fail."),
+    AUTH_SIGNUP_FAIL("1101", "Signup Fail."),
+    ITEM_SAVE_SUCCESS("2000", "ITEM SAVE SUCCESS."),
+    ITEM_SAVE_FAIL("2100", "Signup Fail.");
 
 
     private String code;

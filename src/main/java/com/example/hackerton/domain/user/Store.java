@@ -35,8 +35,11 @@ public class Store {
     @Column(nullable = false)
     private String tel;
 
+    @Column(nullable = false)
+    private String address;
+
     @OneToMany
-    @JoinColumn(name = "store_id", nullable = false)
+    @JoinColumn(name = "store_id")
     private List<Item> items = new ArrayList<>();
 
 

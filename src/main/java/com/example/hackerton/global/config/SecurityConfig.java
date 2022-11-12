@@ -1,11 +1,13 @@
 package com.example.hackerton.global.config;
 
 import com.example.hackerton.global.common.EndPoint;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -24,6 +26,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring()
+                .antMatchers("/auth/**")
+                .antMatchers("/doc", "/swagger*/**", "/favicon*/**", "/v2/api-docs")
+                .antMatchers("/**");
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -40,10 +51,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-                .antMatchers(HttpMethod.GET, EndPoint.AUTH_LOGIN).permitAll()
+                .antMatchers(HttpMethod.GET, EndPoint.AUTH_USER_LOGIN).permitAll()
                 .antMatchers(HttpMethod.GET, EndPoint.AUTH_REFRESH).permitAll()
-                .antMatchers(HttpMethod.POST, EndPoint.AUTH_LOGIN).permitAll()
+                .antMatchers(HttpMethod.POST, EndPoint.AUTH_USER_LOGIN).permitAll()
                 .antMatchers(HttpMethod.POST, EndPoint.AUTH_REFRESH).permitAll()
+                .antMatchers(HttpMethod.POST, EndPoint.AUTH_USER_SIGNUP).permitAll()
+                .antMatchers(HttpMethod.POST, EndPoint.AUTH_STORE_LOGIN).permitAll()
+                .antMatchers(HttpMethod.POST, EndPoint.AUTH_STORE_SIGNUP).permitAll()
+
+
 //                .antMatchers(HttpMethod.POST, "/**").permitAll()
 
                 .anyRequest()
