@@ -1,11 +1,14 @@
 package com.example.hackerton.global.config;
 
 import com.example.hackerton.global.common.EndPoint;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -22,6 +25,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring()
+                .antMatchers("/auth/**")
+                .antMatchers("/doc", "/swagger*/**", "/favicon*/**", "/v2/api-docs");
     }
 
     @Override
@@ -44,10 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, EndPoint.AUTH_REFRESH).permitAll()
                 .antMatchers(HttpMethod.POST, EndPoint.AUTH_LOGIN).permitAll()
                 .antMatchers(HttpMethod.POST, EndPoint.AUTH_REFRESH).permitAll()
-//                .antMatchers(HttpMethod.POST, "/**").permitAll()
-
                 .anyRequest()
                 .authenticated();
     }
-
 }
