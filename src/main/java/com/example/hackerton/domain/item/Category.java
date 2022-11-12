@@ -3,7 +3,7 @@ package com.example.hackerton.domain.item;
 public enum Category {
 
     CAMERA("1000"),
-    RENS("2000"),
+    LENS("2000"),
     ACCESSORIES("3000");
 
     private final String level;

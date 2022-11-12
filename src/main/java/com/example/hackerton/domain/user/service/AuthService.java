@@ -10,6 +10,8 @@ public interface AuthService {
 
     User userConfirmation(String id, String pw);
 
+    Store getStore(String companyName);
+
     Store storeConfirmation(String id, String pw);
 
     LoginTokenResponse createLoginToken(LoginDto dto);

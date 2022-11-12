@@ -7,6 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class Item {
     private Long price;
     private String imageName;
     private String imageUrl;
+
+    @Enumerated(EnumType.STRING)
     private Category category;
     private Long count; //재고
     private String content;
@@ -35,6 +38,6 @@ public class Item {
     @JoinColumn(name = "item_id")
     private List<Review> reviewList = new ArrayList<>();
 
-    private LocalDate createDate;
-    private LocalDate updateDate;
+    private LocalDateTime createDate;
+    private LocalDateTime updateDate;
 }

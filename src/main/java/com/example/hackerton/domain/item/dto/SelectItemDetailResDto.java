@@ -6,10 +6,9 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class SelectItemResDto {
+public class SelectItemDetailResDto {
     private String companyName;
     private String name;
     private Long price;
-//    private String imageUrl;
     private Category category;
 }

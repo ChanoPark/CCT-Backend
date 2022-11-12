@@ -66,4 +66,9 @@ public class AuthServiceImpl implements AuthService {
         String refreshToken = jwtTokenProvider.createRefreshToken(dto);
         return new LoginTokenResponse(accessToken,refreshToken);
     }
+
+    @Override
+    public Store getStore(String companyName) {
+        return authStoreRepository.getStore(companyName);
+    }
 }

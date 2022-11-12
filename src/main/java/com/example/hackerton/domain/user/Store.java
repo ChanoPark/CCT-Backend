@@ -52,4 +52,8 @@ public class Store {
 
     @Column(nullable = false)
     private String level;
+
+    public void addItems(Item item) {
+        this.items.add(item);
+    }
 }
