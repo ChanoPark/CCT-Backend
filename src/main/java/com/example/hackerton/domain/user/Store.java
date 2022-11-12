@@ -38,6 +38,9 @@ public class Store {
     @Column(nullable = false)
     private String address;
 
+    @Column(nullable = false)
+    private int point;
+
     @OneToMany
     @JoinColumn(name = "store_id")
     private List<Item> items = new ArrayList<>();

@@ -52,6 +52,7 @@ public class AuthServiceImpl implements AuthService {
                 .number(number)
                 .tel(tel)
                 .address(address)
+                .point(0)
                 .role(UserPermission.PROVIDER)
                 .level("2000")
                 .build();
