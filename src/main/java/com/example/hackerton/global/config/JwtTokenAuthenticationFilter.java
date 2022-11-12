@@ -2,6 +2,8 @@ package com.example.hackerton.global.config;
 
 import com.example.hackerton.domain.user.User;
 import com.example.hackerton.domain.user.UserPermission;
+import com.example.hackerton.global.common.CodeSet;
+import com.example.hackerton.global.common.EndPoint;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.RequiredArgsConstructor;

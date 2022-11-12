@@ -1,5 +1,6 @@
 package com.example.hackerton.global.config;
 
+import com.example.hackerton.global.common.EndPoint;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -43,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, EndPoint.AUTH_REFRESH).permitAll()
                 .antMatchers(HttpMethod.POST, EndPoint.AUTH_LOGIN).permitAll()
                 .antMatchers(HttpMethod.POST, EndPoint.AUTH_REFRESH).permitAll()
-                .antMatchers(HttpMethod.POST, EndPoint.DEBUG + "/**").permitAll()
+//                .antMatchers(HttpMethod.POST, "/**").permitAll()
 
                 .anyRequest()
                 .authenticated();
